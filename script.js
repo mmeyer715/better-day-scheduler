@@ -35,7 +35,6 @@ function colors() {
                 $(changeID).addClass("present");
         }
     }
-    console.log('hi');
 }
 
 // updating time
@@ -44,3 +43,23 @@ $(document).ready(function() {
     currentDate();
     setInterval(currentDate, 1000);
 });
+
+// saving and pulling data to/from local storage
+
+var saveBtn = document.getElementsByClassName('.saveBtn')
+// for (var i = 0; i < saveBtn.length; i++) {
+//     saveBtn[i].addEventListener('click', saveInfo);
+// }
+
+function saveInfo(){
+    console.log('help');
+}
+for (var i = 0; i < saveBtn.length; i++) {
+    saveBtn[i].addEventListener('click', saveInfo());
+}
+
+//     var textArea = document.getElementsByClassName('.description').value;
+//     var time = JSON.parse(localStorage.getItem("timeBlocks")) ?? [];
+
+//     localStorage.setItem(textArea, time);
+// });
