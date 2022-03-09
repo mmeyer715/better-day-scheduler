@@ -1,27 +1,46 @@
 // pulling elements from HTML
 var todaysDate = document.getElementById('currentDay');
-var hours = document.getElementsByClassName('.time-block')
-var past = document.getElementsByClassName('.past');
 
 // adds current date to scheduler
-function date() {
-    var today = moment().format('dddd, MMM Do YYYY');
-    todaysDate.innerHTML = today;
-}
+var date = "";
+var hour = "";
 
+function currentDate() {
+    date = moment(new Date());
+    todaysDate.innerHTML = (date.format('dddd, MMM Do YYYY, h:mm a'));
+    hour = parseInt(date.format('H'));
+    colors();
+}
 // displaying todays date
-date();
+setInterval(currentDate())
 
-// color coding past, present, and future time
-function colorCode() {
-    // setting current time
-    var today = new Date();
-    var currentTime = today.getHours() + ":" + today.getMinutes();
-
-    /* TODO
-    create function to loop through timeblock
-    create function to color code timeblocks
-    save to local storage*/
+// function to colorcode and loop through timeblocks
+function colors() {
+    // getting current time
+    // var time = moment().format('H');
+    // link timeblocks with js
+    var timeBlocks = $(".description");
+    // loop through timeblocks
+    for (var i = 0; i < timeBlocks.length; i++) {
+        // get timeblocks index id and making it a string
+        var blockID = timeBlocks[i].id;
+        // get timeblocks by id
+        var changeID = document.getElementById(timeBlocks[i].id);
+        // adding classes based on time
+        if (parseInt(blockID) < hour) {
+            $(changeID).addClass("past");
+        }   else if (parseInt(blockID) > hour) {
+                $(changeID).addClass("future");
+        }   else if (parseInt(blockID) === hour) {
+                $(changeID).addClass("present");
+        }
+    }
+    console.log('hi');
 }
 
-colorCode();
+// updating time
+$(document).ready(function() {
+    todaysDate = $("#displayMoment")
+    currentDate();
+    setInterval(currentDate, 1000);
+});
