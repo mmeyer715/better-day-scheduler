@@ -46,7 +46,7 @@ $(document).ready(function() {
 
 // saving and pulling data to/from local storage
 
-var saveBtn = document.getElementsByClassName('.saveBtn')
+var saveBtn = document.getElementsByTagName('button')
 // for (var i = 0; i < saveBtn.length; i++) {
 //     saveBtn[i].addEventListener('click', saveInfo);
 // }
