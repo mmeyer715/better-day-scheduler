@@ -1,6 +1,14 @@
 // pulling elements from HTML
 var todaysDate = document.getElementById('currentDay');
-
+console.log(moment().format('MM/DD'));
+var currentDay = localStorage.getItem('currentDay') || moment().unix();
+console.log(currentDay);
+console.log(moment().unix());
+if (moment().unix(currentDay).format('DD') < moment().format('DD')) {
+    localStorage.clear();
+    currentDay = moment().unix();
+}
+localStorage.setItem('currentDay', currentDay);
 // adds current date to scheduler
 var date = "";
 var hour = "";
@@ -39,17 +47,27 @@ $(document).ready(function() {
     todaysDate = $("#displayMoment")
     currentDate();
     setInterval(currentDate, 1000);
+
 });
 
 // saving and pulling data to/from local storage
 
 var saveBtn = document.getElementsByTagName('button')
-
+console.log(saveBtn);
 for (var i = 0; i < saveBtn.length; i++) {
     saveBtn[i].addEventListener('click', saveInfo);
 }
 
+// saving text to local storage
 function saveInfo() {
-      var textArea = document.getElementsByClassName('.description')
-      localStorage.setItem('plans', JSON.stringify(textArea.value))
+      var textArea = this.parentElement.children[1].value;
+      var key = this.parentElement.children[1].getAttribute('id')
+      localStorage.setItem(key, textArea);
 }
+
+
+for(var i = 9; i < 18; i++) {
+    var textVal = localStorage.getItem(i);
+    document.getElementById(i).value = textVal
+}
+
