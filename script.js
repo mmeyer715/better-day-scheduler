@@ -16,9 +16,6 @@ setInterval(currentDate())
 
 // function to colorcode and loop through timeblocks
 function colors() {
-    // getting current time
-    // var time = moment().format('H');
-    // link timeblocks with js
     var timeBlocks = $(".description");
     // loop through timeblocks
     for (var i = 0; i < timeBlocks.length; i++) {
@@ -47,19 +44,12 @@ $(document).ready(function() {
 // saving and pulling data to/from local storage
 
 var saveBtn = document.getElementsByTagName('button')
-// for (var i = 0; i < saveBtn.length; i++) {
-//     saveBtn[i].addEventListener('click', saveInfo);
-// }
 
-function saveInfo(){
-    console.log('help');
-}
 for (var i = 0; i < saveBtn.length; i++) {
-    saveBtn[i].addEventListener('click', saveInfo());
+    saveBtn[i].addEventListener('click', saveInfo);
 }
 
-//     var textArea = document.getElementsByClassName('.description').value;
-//     var time = JSON.parse(localStorage.getItem("timeBlocks")) ?? [];
-
-//     localStorage.setItem(textArea, time);
-// });
+function saveInfo() {
+      var textArea = document.getElementsByClassName('.description')
+      localStorage.setItem('plans', JSON.stringify(textArea.value))
+}
