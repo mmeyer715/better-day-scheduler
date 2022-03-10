@@ -1,26 +1,14 @@
 // pulling elements from HTML
-var todaysDate = document.getElementById('currentDay');
-console.log(moment().format('MM/DD'));
-var currentDay = localStorage.getItem('currentDay') || moment().unix();
-console.log(currentDay);
-console.log(moment().unix());
-if (moment().unix(currentDay).format('DD') < moment().format('DD')) {
-    localStorage.clear();
-    currentDay = moment().unix();
-}
-localStorage.setItem('currentDay', currentDay);
-// adds current date to scheduler
+var todaysDate = "";
+
 var date = "";
 var hour = "";
 
 function currentDate() {
     date = moment(new Date());
-    todaysDate.innerHTML = (date.format('dddd, MMM Do YYYY, h:mm a'));
+    todaysDate.html(date.format('dddd, MMM Do YYYY, h:mm a'));
     hour = parseInt(date.format('H'));
-    colors();
 }
-// displaying todays date
-setInterval(currentDate())
 
 // function to colorcode and loop through timeblocks
 function colors() {
@@ -42,18 +30,8 @@ function colors() {
     }
 }
 
-// updating time
-$(document).ready(function() {
-    todaysDate = $("#displayMoment")
-    currentDate();
-    setInterval(currentDate, 1000);
-
-});
-
-// saving and pulling data to/from local storage
-
-var saveBtn = document.getElementsByTagName('button')
-console.log(saveBtn);
+// adding functionality to save buttons
+var saveBtn = document.getElementsByTagName('button');
 for (var i = 0; i < saveBtn.length; i++) {
     saveBtn[i].addEventListener('click', saveInfo);
 }
@@ -61,13 +39,29 @@ for (var i = 0; i < saveBtn.length; i++) {
 // saving text to local storage
 function saveInfo() {
       var textArea = this.parentElement.children[1].value;
-      var key = this.parentElement.children[1].getAttribute('id')
+      var key = this.parentElement.children[1].getAttribute('id');
       localStorage.setItem(key, textArea);
 }
 
-
+// pulling any data from local
 for(var i = 9; i < 18; i++) {
     var textVal = localStorage.getItem(i);
     document.getElementById(i).value = textVal
 }
 
+// clear data after midnight
+function clearData() {
+    var storage = JSON.parse(localStorage.getItem(textVal)) ?? [];
+    if(storage.length === 0 || storage[0].dayVal < day){
+        localStorage.clear();
+    }
+}
+
+// updating time
+$(document).ready(function() {
+    todaysDate = $("#currentDay");
+    currentDate();
+    colors();
+    clearData();
+    setInterval(currentDate, 1000);
+});
