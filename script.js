@@ -49,14 +49,6 @@ for(var i = 9; i < 18; i++) {
     document.getElementById(i).value = textVal
 }
 
-// clear data after midnight
-function clearData() {
-    var storage = JSON.parse(localStorage.getItem(textVal)) ?? [];
-    if(storage.length === 0 || storage[0].dayVal < day){
-        localStorage.clear();
-    }
-}
-
 // updating time
 $(document).ready(function() {
     todaysDate = $("#currentDay");
